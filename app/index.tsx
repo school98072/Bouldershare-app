@@ -8,8 +8,13 @@ const GRADES = ["", "V0","V1","V2","V3","V4","V5","V6","V7","V8","V9"] as const;
 type Grade = typeof GRADES[number];
 
 function getBackendBase() {
-  if (Platform.OS === "android") return "http://10.0.2.2:3002";
-  return "http://localhost:3002";
+  // For production, use environment variable or Railway URL
+  if (__DEV__) {
+    if (Platform.OS === "android") return "http://10.0.2.2:3002";
+    return "http://localhost:3002";
+  }
+  // Replace with your Railway URL in production
+  return process.env.EXPO_PUBLIC_BACKEND_URL || "https://your-railway-app.up.railway.app";
 }
 
 export default function FeedScreen() {
